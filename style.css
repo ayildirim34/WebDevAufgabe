@@ -1,0 +1,128 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 70px repeat(4, minmax(70px, auto)) 70px;
+    gap: 5px;
+    grid-template-areas: 
+    "header header header header"
+    "main main main aside1"
+    "main main main aside1"
+    "aside2 section section aside1"
+    "footer footer footer footer"
+    ;
+}
+
+header {
+grid-area: header;
+background-color: lightyellow;
+display: flex;
+justify-content: space-between;
+
+}
+
+header > * {
+    flex-grow: 1;
+}
+
+header nav ul {
+    display: flex;
+    list-style-type: none;
+    justify-content: space-around;
+    background-color: chartreuse;
+    height: 70px;
+    padding-top: 15px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+
+header nav ul li {
+    padding: 10px;
+    border: 2px solid red;
+    border-radius: 20px;
+}
+header nav ul li:hover {
+background-color: azure;}
+
+figure {
+    text-align: center;
+}
+figure img {
+    width: 25rem;
+    height: 25rem;
+    border-radius: 25px;
+}
+header {
+    grid-area: header;
+}
+
+main {
+    grid-area: main;
+    background-color: chocolate;
+}
+
+.aside1 {
+grid-area: aside1;
+background-color: brown;
+    }
+.aside2 {
+grid-area: aside2;
+background-color: blue;
+        }
+
+section {
+grid-area: section;
+background-color: darkgoldenrod;
+            }
+
+footer {
+grid-area: footer;
+background-color: darkmagenta;
+}
+
+nav {
+    grid-area: nav;
+    }
+
+@media only screen and (max-width: 720px) {
+    body {
+        grid-template-areas: 
+        "header header header header"
+    
+        "aside1 aside1 aside1 aside1"
+        "main main main main"
+        "main main main main"
+        "section section section section"
+        "footer footer footer footer"
+        ;
+        background-image: url(./images/tree.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100vh;
+    }
+    .aside2 {
+        display: none; 
+    }
+    .aside1 {
+        margin-top: 3rem;
+        opacity: .4;
+    }
+    main {
+        opacity: .4;
+    }
+    figure {
+        display: none;
+    }
+    header {
+        flex-direction: column;
+    }
+
+}
