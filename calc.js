@@ -1,10 +1,10 @@
-var zahl1= parseFloat(prompt("Bitte geben Sie erste Zahl ein"));
+const zahl1= Number(prompt("Bitte geben Sie erste Zahl ein"));
 if(isNaN(zahl1)) 
 {
 alert("!Fehler : Bitte geben Sie erste Zahl ein")
 
 }
-var zahl2= parseFloat(prompt("Bitte geben Sie zweite Zahl ein"));
+const zahl2= Number(prompt("Bitte geben Sie zweite Zahl ein"));
 if(isNaN(zahl2)) 
 {
 alert("!Fehler : Bitte geben Sie zweite Zahl ein")
