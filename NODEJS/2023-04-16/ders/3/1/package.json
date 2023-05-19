@@ -1,0 +1,12 @@
+{
+  "name": "2023-04-16",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test" : "console.log('merhaba')"
+  },
+  "author": "",
+  "license": "ISC"
+}
