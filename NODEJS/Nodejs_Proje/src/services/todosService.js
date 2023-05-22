@@ -1,66 +1,71 @@
-const todos = require("../models/todos.js");
+const Todos = require("../models/Todos.js");
 
-const todoAdd = async (req, res)=> {
+const create = async (req, res)=> {
    
   try {
-    const todoAdd = new todos (req.body)
-    await todoAdd.save()
-    return res.json(todoAdd)
+    const data = await Todos.create(req.body)
+    return res.json(data)
    
   } catch (error) {
     res.status(400).json({ message: "Todo could not created.." });
   }
   };
 
-  const todoUpdate = async (req, res) => {
-   const {id} = req.params
-   try {
-    const update = await todos.findByIdAndUpdate (id, req.body)
+  const update = async (req, res) => {
 
-    if (update) {
-      return res.status(200).json({message : "Todo could update" })
-    }
-    else return res.status(500).json({ message: "Todo could not update.." })
-    
+    try {
+      const todoId = req.params.id;
+      const todo = req.body;
+      todo.updatedDate = Date.now();
+      const data = await Todos.updateOne({_id : todoId}, {$set : todo}).exec(); 
+      return res.json(data)
+
    } catch (error) {
-    res.status(500).json({ message: "Todo could not update.." });
+    res.status(404).json({ message: "Todo could not update.." });
    }
   };
 
-  const todoGetAll = async(req, res) => {
-    console.log("11")
+  const find = async (req, res)=> {
+      try {
+      const todoId = req.params.id;
+      const data = await Todos.findOne({_id : todoId}).exec();
+      return res.json(data);
+      } 
+      catch (error) {
+        return res.status(400).json({ message: "Todo could not finden.." });
+      }
+  }
+  
+
+  const findAll = async(req, res) => {
     try {
-      const todoGetAll = await todos.find({})
-      return res.status(200).json({
-        success: true,
-        data : todoGetAll})
-      
+      const {userId} = req.body
+      const data = await Todos.find({userId: userId}).exec();
+      return res.json(data);  
     } 
     catch (error) {
       return res.status(400).json({ message: "Todo could not finden.." });
     }
   }
 
-  const todoDelete = async(req, res) => {
-  const {id} = req.params
-  try {
-    const todoDelete = await todos.findByIdAndRemove (id)
-    if (todoDelete) {
-      return res.status(200).json({message : "Todo could delete" })
+  const remove = async (req, res) => {
+
+    try {
+      const todoId = req.params.id
+      const data = await Todos.deleteOne({_id : todoId}).exec();
+      
+      return res.json(data)
+ 
+    } catch (error) {
+     return res.status(500).json({ message: "Todo could not delete.." });
     }
-    else return res.status(500).json({ message: "Todo could not delete.." })
+   };
 
-  } catch (error) {
-      return res.status(400).json({ message: "Todo could not delete.." });
-  }
-
-  }
-
-
-module.exports = {
-  todoAdd,
-  todoUpdate,
-  todoGetAll, 
-  todoDelete
-};
+  module.exports = {
+    create,
+    update,
+    find, 
+    findAll, 
+    remove
+  };
  

@@ -1,9 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const {todoAdd, todoUpdate, todoGetAll, todoDelete} = require("../services/todosService");
+const auth = require("../middlewares/auth")
+const {create, find, findAll, update, remove} = require("../services/todosService");
 
-router.post("/todo", todoAdd)
-router.put("/todo/:id", todoUpdate)
-router.get("/todo", todoGetAll)
-router.delete("/todo/:id", todoDelete)
+
+router.get("/:id", find)
+router.post("/findall", findAll)
+router.post("/create", create)
+router.patch("/:id/update", update)
+router.delete("/:id/delete", auth, remove)
 module.exports = router;
